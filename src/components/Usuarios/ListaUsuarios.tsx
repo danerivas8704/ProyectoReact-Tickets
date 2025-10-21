@@ -2,28 +2,28 @@ import { useEffect, useState } from "react"
 import { appsettings } from "../../settings/appsetings"
 import { Link } from "react-router"
 import Swal from "sweetalert2"
-import type { IPrioridad } from "../../Interfaces/IPrioridad"
+import type { IUsuario } from "../../Interfaces/IUsuario"
 import { Container, Row, Col, Table, Button } from "reactstrap"
 
-export function ListaPrioridades() {
-     const [prioridades, setPrioridades] = useState<IPrioridad[]>([]);
+export function ListaUsuarios() {
+     const [usuarios, setUsuarios] = useState<IUsuario[]>([]);
 
-     const obtenerPrioridades = async () => {
-          const response = await fetch(`${appsettings.apiUrl}Prioridades/Obtener`)
+     const obtenerUsuarios = async () => {
+          const response = await fetch(`${appsettings.apiUrl}Usuarios/Obtener`)
           if (response.ok) {
                const data = await response.json();
-               setPrioridades(data)
+               setUsuarios(data)
           }
      }
 
      useEffect(() => {
-          obtenerPrioridades()
+          obtenerUsuarios()
      }, [])
 
      const Eliminar = (id: number) => {
           Swal.fire({
                title: "Estas seguro?",
-               text: "Eliminar prioridad!",
+               text: "Eliminar usuario!",
                icon: "warning",
                showCancelButton: true,
                confirmButtonColor: "#3085d6",
@@ -31,8 +31,8 @@ export function ListaPrioridades() {
                confirmButtonText: "Si, eliminar!"
           }).then(async (result) => {
                if (result.isConfirmed) {
-                    const response = await fetch(`${appsettings.apiUrl}Prioridades/Eliminar/${id}`, { method: "DELETE" })
-                    if (response.ok) await obtenerPrioridades()
+                    const response = await fetch(`${appsettings.apiUrl}Usuarios/Eliminar/${id}`, { method: "DELETE" })
+                    if (response.ok) await obtenerUsuarios()
                }
           });
      }
@@ -43,27 +43,29 @@ export function ListaPrioridades() {
                     <Col sm={{ size: 8, offset: 2 }}>
                          <h4>Lista de prioridades</h4>
                          <hr />
-                         <Link className="btn btn-success mb-3" to="/prioridades/nuevaprioridad" >Nueva Prioridad</Link>
+                         <Link className="btn btn-success mb-3" to="/usuarios/nuevousuario" >Nuevo Usuario</Link>
 
                          <Table bordered>
                               <thead>
                                    <tr>
-                                        <th>Codigo Prioridad</th>
-                                        <th>Nombre Prioridad</th>
-                                        <th>Descripcion Prioridad</th>
-                                        <th>Nivel Prioridad</th>                                        
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Correo</th>
+                                        <th>Direccion</th>  
+                                        <th>Acciones</th>                                      
                                    </tr>
                               </thead>
                               <tbody>
                                    {
-                                        prioridades.map((item) => (
-                                             <tr key={item.codigoPrioridad}>
-                                                  <td>{item.nombrePrioridad}</td>
-                                                  <td>{item.descripcionPrioridad}</td>
-                                                  <td>{item.nivelPrioridad}</td>                                                  
+                                        usuarios.map((item) => (
+                                             <tr key={item.codigoUsuario}>
+                                                  <td>{item.nombreUsuario}</td> 
+                                                  <td>{item.apellidoUsuario}</td>
+                                                  <td>{item.correo}</td>
+                                                  <td>{item.direccion}</td>                                                  
                                                   <td>
-                                                       <Link className="btn btn-primary me-2" to={`../Prioridades/editarprioridades/${item.codigoPrioridad}`} >Editar</Link>
-                                                       <Button color="danger" onClick={() => { Eliminar(item.codigoCliente!) }}>
+                                                       <Link className="btn btn-primary me-2" to={`../Usuarios/editarusuarios/${item.codigoUsuario}`} >Editar</Link>
+                                                       <Button color="danger" onClick={() => { Eliminar(item.codigoUsuario!) }}>
                                                             Eliminar
                                                        </Button>
                                                   </td>

@@ -3,73 +3,104 @@ import { appsettings } from "../../settings/appsetings"
 import { useNavigate } from "react-router"
 import  Swal  from "sweetalert2"
 import { Container, Row, Col, Form, FormGroup, FormLabel, FormControl, Button, Label,Input} from "reactstrap"    
-import type { IPrioridad } from "../../Interfaces/IPrioridad"
+import type { IUsuario } from "../../Interfaces/IUsuario"
 
 
-const initialIPrioridad = {  
-  nombrePrioridad: "",
-  descripcionPrioridad: "",  
-  nivelPrioridad : 0,
-  codigoEstado: 1,
+const initialIUsuario = {  
+  nombreUsuario: "",
+  apellidoUsuario: "",  
+  correo : "",
+  direccion: "",
+  codigoEstado: 0,
+  codigoDepto: 0,
+  password:"",
   fechaCreacion: new Date(),
   fechaModificacion: new Date()
 }
 
 
-export function NuevaPrioridad(){
+export function NuevoUsuario(){
      const navigate=useNavigate();
-     const [prioridad,setPrioridad]=useState<IPrioridad>(initialIPrioridad);
+     const [usuarios,setUsuarios]=useState<IUsuario>(initialIUsuario);
     const inputChangeValue=(event:ChangeEvent<HTMLInputElement>)=>{
         const inputName = event.target.name;
         const inputValue = event.target.value;
-        setPrioridad({
-            ...prioridad,
+        setUsuarios({
+            ...usuarios,
             [inputName]:inputValue})
     }
 
     const guardar = async () =>{
-           const response = await fetch(`${appsettings.apiUrl}Prioridades/Crear`,{
+           const response = await fetch(`${appsettings.apiUrl}Usuarios/Crear`,{
                 method: 'POST',
                 headers:{
                      'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(prioridad)
+                body: JSON.stringify(usuarios)
            })
            if(response.ok){
-                navigate("/prioridades/listaprioridades")
+                navigate("/Usuarios/listausuarios")
            }else{
                 Swal.fire({
                      title: "Error!",
-                     text: "No se pudo guardar la prioridad",
+                     text: "No se pudo guardar el usuario",
                      icon: "warning"
                    });
          }
      }
 
      const volver = () =>{
-          navigate("/prioridades/listaprioridades")
+          navigate("/usuarios/listausuarios")
      }
 
     return(
          <Container className="mt-5">
                <Row>
                     <Col sm={{size:8, offset:2}}>
-                         <h4>Nueva prioridad</h4>
+                         <h4>Nuevo Usuario</h4>
                          <hr/>
                          <Form>
-                              <FormGroup>
-                                   <Label>Nombre Prioridad</Label>
-                                   <Input type="text" name="nombrePrioridad" onChange={inputChangeValue} value={prioridad.nombrePrioridad} />
-                              </FormGroup>
-                              <FormGroup>
-                                   <Label>Descripcion Prioridad</Label>
-                                   <Input type="text" name="descripcionPrioridad" onChange={inputChangeValue} value={prioridad.descripcionPrioridad} />
-                              </FormGroup>
-                              <FormGroup>
-                                   <Label>Nivel Prioridad</Label>
-                                   <Input type="text" name="nivelPrioridad" onChange={inputChangeValue} value={prioridad.nivelPrioridad} />
-                              </FormGroup>                              
-                         </Form>
+            <FormGroup>
+              <Label for="nombreUsuario">Nombre Usuario</Label>
+              <Input type="text" name="nombreUsuario" onChange={inputChangeValue} value={usuarios.nombreUsuario} />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="apellidoUsuario">Apellidos Usuario</Label>
+              <Input type="text" name="apellidoUsuario" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="correo">Correo</Label>
+              <Input
+                id="correo"
+                type="text"
+                name="correo"
+                value={usuarios.correo}
+                onChange={inputChangeValue}
+              />
+            </FormGroup>
+            
+            <FormGroup>
+              <Label for="direccion">Direccion</Label>
+              <Input type="text" name="direccion" onChange={inputChangeValue} value={usuarios.direccion} />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="codigoEstado">Estado</Label>
+              <Input type="text" name="codigoEstado" onChange={inputChangeValue} value={usuarios.codigoEstado} />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="codigoDepto">Departamento</Label>
+              <Input type="text" name="codigoDepto" onChange={inputChangeValue} value={usuarios.codigoDepto} />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input type="text" name="password" onChange={inputChangeValue} value={usuarios.password} />
+            </FormGroup>
+          </Form>
                          <Button color="primary" className="me-4" onClick={guardar}>Guardar</Button>
                          <Button color="secondary"  onClick={volver}>Volver</Button>
                     </Col>

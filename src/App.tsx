@@ -1,4 +1,4 @@
-import {BrowserRouter,Route,Routes} from "react-router"
+import { BrowserRouter, Route, Routes } from "react-router"
 import {Lista} from "./components/Lista"
 import {NuevoCliente} from "./components/NuevoCliente"
 import { EditarCliente } from "./components/EditarCliente"
@@ -16,37 +16,48 @@ import { NuevoEstado } from "./components/Estados/NuevoEstado"
 import { EditarEstados } from "./components/Estados/EditarEstados"
 import { Login} from "./components/Login/Ingreso"
 import { RecuperarPassword} from "./components/Login/RecuperarPassword"
+import { ListaUsuarios} from "./components/Usuarios/ListaUsuarios"
+import { EditarUsuarios} from "./components/Usuarios/EditarUsuarios"
+import { NuevoUsuario} from "./components/Usuarios/NuevoUsuario"
+import { Sidebar } from "./components/Sidebar"
+import { Layout } from "./components/Layout";
 
 function App() {
+  const hideSidebar = window.location.pathname === "/Login/ingreso";
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Lista/>}/>
-        <Route path="/nuevocliente" element={<NuevoCliente/>}/>
-        <Route path="/editarcliente/:id" element={<EditarCliente/>}/>
-        <Route path="prioridades/listaprioridades" element={<ListaPrioridades/>}/>
-        <Route path="estados/listaestados" element={<ListaEstados/>}/>
-        <Route path="estados/nuevoestado" element={<NuevoEstado/>}/>
-        <Route path="estados/editarestados/:id" element={<EditarEstados/>}/>
-        <Route path="login/ingreso" element={<Login/>}/>
-        <Route path="login/recuperarpassword" element={<RecuperarPassword/>}/>
-      </Routes>
-      <Routes>
-        <Route path="categorias/listacategoria" element={<ListaCategoria/>}/>
-        <Route path="categorias/nuevacategoria" element={<NuevaCategoria/>}/>
-        <Route path="categorias/editarcategoria/:id" element={<EditarCategoria/>}/>
-      </Routes>
-      <Routes>
-        
-        <Route path="prioridades/nuevaprioridad" element={<NuevaPrioridad/>}/>
-        <Route path="prioridades/editarprioridades/:id" element={<EditarPrioridades/>}/>
-      </Routes>
-      <Routes>
-        <Route path="Departamentos/listadepartamentos" element={<ListaDepartamentos/>}/>
-        <Route path="Departamentos/nuevodepartamento" element={<NuevoDepartamento/>}/>
-        <Route path="Departamentos/editardepartamentos/:id" element={<EditarDepartamentos/>}/>
-      </Routes>
-    </BrowserRouter>  
-  )}
+      {hideSidebar ? (
+        <Routes>
+          <Route path="Login/ingreso" element={<Login/>}/>
+        </Routes>
+      ) : (
+        <Layout>
+          <Routes>
+            <Route path="/nuevocliente" element={<NuevoCliente/>}/>
+            <Route path="/lista" element={<Lista/>}/>
+            <Route path="/editarcliente/:id" element={<EditarCliente/>}/>
+            <Route path="/sidebar" element={<Sidebar/>}/>
+            <Route path="login/recuperarpassword" element={<RecuperarPassword/>}/>
+            <Route path="usuarios/listausuarios" element={<ListaUsuarios/>}/>
+            <Route path="usuarios/editarusuarios" element={<EditarUsuarios/>}/>
+            <Route path="usuarios/nuevousuario" element={<NuevoUsuario/>}/>
+            <Route path="categorias/listacategoria" element={<ListaCategoria/>}/>
+            <Route path="categorias/nuevacategoria" element={<NuevaCategoria/>}/>
+            <Route path="categorias/editarcategoria/:id" element={<EditarCategoria/>}/>
+            <Route path="prioridades/listaprioridades" element={<ListaPrioridades/>}/>
+            <Route path="prioridades/nuevaprioridad" element={<NuevaPrioridad/>}/>
+            <Route path="prioridades/editarprioridades/:id" element={<EditarPrioridades/>}/>
+            <Route path="estados/listaestados" element={<ListaEstados/>}/>
+            <Route path="estados/nuevoestado" element={<NuevoEstado/>}/>
+            <Route path="estados/editarestados/:id" element={<EditarEstados/>}/>
+            <Route path="Departamentos/listadepartamentos" element={<ListaDepartamentos/>}/>
+            <Route path="Departamentos/nuevodepartamento" element={<NuevoDepartamento/>}/>
+            <Route path="Departamentos/editardepartamentos/:id" element={<EditarDepartamentos/>}/>
+          </Routes>
+        </Layout>
+      )}
+    </BrowserRouter>
+  );
+}
 
 export default App

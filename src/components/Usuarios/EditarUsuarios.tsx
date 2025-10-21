@@ -14,30 +14,30 @@ import {
   FormControl
 } from "reactstrap"
 import { appsettings } from "../../settings/appsetings"
-import type { IPrioridad } from "../../Interfaces/IPrioridad"
+import type { IUsuario } from "../../Interfaces/IUsuario"
 
-const initialIPrioridad: IPrioridad = {
+const initialIUsuario: IUsuario = {
   codigoPrioridad: 0,
   nombrePrioridad: "",
   descripcionPrioridad: "",
   nivelPrioridad: 1
 };
 
-export function EditarPrioridades() {
+export function EditarUsuarios() {
   const { id } = useParams<{ id: string }>();
-  const [prioridades, setPrioridades] = useState<IPrioridad>(initialIPrioridad);
+  const [usuarios, setUsuarios] = useState<IUsuario>(initialIUsuario);
   const [cargando, setCargando] = useState<boolean>(true);
   const navigate = useNavigate();
 
   /** 🔹 Cargar prioridad al montar el componente */
   useEffect(() => {
-    const obtenerPrioridades = async () => {
+    const obtenerUsuarios = async () => {
       try {
-        const response = await fetch(`${appsettings.apiUrl}Prioridades/ObtenerCodigo/${id}`);
+        const response = await fetch(`${appsettings.apiUrl}Usuarios/ObtenerCodigo/${id}`);
         if (!response.ok) throw new Error("Error al obtener la categoria");
-        const data: IPrioridad = await response.json();
+        const data: IUsuario = await response.json();
         if (Array.isArray(data) && data.length > 0) {
-        setPrioridades(data[0]);
+        setUsuarios(data[0]);
         }
       } catch (error) {
         Swal.fire("Error", "No se pudo cargar la información del cliente", "error");
@@ -46,15 +46,15 @@ export function EditarPrioridades() {
       }
     };
 
-    obtenerPrioridades();
+    obtenerUsuarios();
   }, []);
 
   /** 🔹 Actualizar el estado cuando cambian los inputs */
   const inputChangeValue=(event:ChangeEvent<HTMLInputElement>) => {
     const inputName = event.target.name;
     const inputValue = event.target.value;  
-    setPrioridades({
-      ...prioridades,
+    setUsuarios({
+      ...usuarios,
       [inputName]: inputValue
     }); 
   };
@@ -62,23 +62,23 @@ export function EditarPrioridades() {
   /** 🔹 Guardar cambios */
   const guardar = async () => {
     try {
-      const response = await fetch(`${appsettings.apiUrl}Prioridades/Editar`, {
+      const response = await fetch(`${appsettings.apiUrl}Usuarios/Editar`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(prioridades),
+        body: JSON.stringify(usuarios),
       });
 
       if (!response.ok) throw new Error("Error al guardar");
 
       Swal.fire({
         title: "Éxito",
-        text: "Prioridad editada correctamente",
+        text: "Usuario editado correctamente",
         icon: "success",
         timer: 4000,
         showConfirmButton: false,
       });
 
-      navigate("/prioridades/listaprioridades");
+      navigate("/usuarios/listausuarios");
     } catch (error) {
       Swal.fire("Error", "No se pudo editar la prioridad", "error");
     }
@@ -90,7 +90,7 @@ export function EditarPrioridades() {
   if (cargando) {
     return (
       <Container className="mt-5 text-center">
-        <h5>Cargando categoria...</h5>
+        <h5>Cargando usuarios...</h5>
       </Container>
     );
   }
@@ -103,24 +103,33 @@ export function EditarPrioridades() {
           <hr />
           <Form>
             <FormGroup>
-              <Label for="nombrePrioridad">Nombre Prioridad</Label>
-              <Input type="text" name="nombrePrioridad" onChange={inputChangeValue} value={prioridades.nombrePrioridad} />
+              <Label for="nombreUsuario">Nombre Prioridad</Label>
+              <Input type="text" name="nombreUsuario" onChange={inputChangeValue} value={usuarios.nombreUsuario} />
             </FormGroup>
 
             <FormGroup>
-              <Label for="descripcionPrioridad">Descripción Prioridad</Label>
-              <Input type="text" name="descripcionPrioridad" onChange={inputChangeValue} value={prioridades.descripcionPrioridad} />
+              <Label for="apellidoUsuario">Descripción Prioridad</Label>
+              <Input type="text" name="apellidoUsuario" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
             </FormGroup>
 
             <FormGroup>
-              <Label for="nivelPrioridad">Nivel Prioridad</Label>
+              <Label for="correo">Nivel Prioridad</Label>
               <Input
-                id="nivelPrioridad"
+                id="correo"
                 type="text"
-                name="nivelPrioridad"
-                value={prioridades.nivelPrioridad}
+                name="correo"
+                value={usuarios.correo}
                 onChange={inputChangeValue}
               />
+            </FormGroup>
+            
+            <FormGroup>
+              <Label for="direccion">Descripción Prioridad</Label>
+              <Input type="text" name="direccion" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
+            </FormGroup>
+            <FormGroup>
+              <Label for="codigoDepto">Descripción Prioridad</Label>
+              <Input type="text" name="codigoDepto" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
             </FormGroup>
           </Form>
 

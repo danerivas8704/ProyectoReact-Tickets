@@ -5,6 +5,7 @@ import Swal from "sweetalert2"
 import type { IPrioridad } from "../../Interfaces/IPrioridad"
 import { Container, Row, Col, Table, Button } from "reactstrap"
 
+
 export function ListaPrioridades() {
      const [prioridades, setPrioridades] = useState<IPrioridad[]>([]);
 
@@ -38,6 +39,7 @@ export function ListaPrioridades() {
      }
 
      return (
+          
           <Container className="mt-5">
                <Row>
                     <Col sm={{ size: 8, offset: 2 }}>
