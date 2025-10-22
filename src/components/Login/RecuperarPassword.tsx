@@ -15,41 +15,40 @@ import { appsettings } from "../../settings/appsetings";
 
 export function RecuperarPassword() {
   const navigate = useNavigate();
-  const [correo, setCorreo] = useState("");
+  const [usuario, setUsuario] = useState("");
+  const [password, setPassword] = useState("");
   const [enviando, setEnviando] = useState(false);
 
   const enviarSolicitud = async () => {
-    if (!correo) {
+    if (!usuario) {
       Swal.fire({
         title: "Campo requerido",
-        text: "Por favor ingresa tu correo electrónico.",
+        text: "Por favor ingrese el usuario",
         icon: "warning",
       });
       return;
     }
-
     setEnviando(true);
-
     try {
-      const response = await fetch(`${appsettings.apiUrl}Auth/RecuperarPassword`, {
-        method: "POST",
+      const response = await fetch(`${appsettings.apiUrl}Usuarios/Cambio`, {
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({ correo }),
-      });
+        body:`usuario=${usuario}&password=${password}`,
+      });      
 
       if (response.ok) {
         Swal.fire({
-          title: "Solicitud enviada",
-          text: "Se ha enviado un enlace de recuperación a tu correo.",
+          title: "Solicitud actualizada",
+          text: "Se ha realizado el cambio correctamente.",
           icon: "success",
         });
         navigate("/login");
       } else {
         Swal.fire({
           title: "Error",
-          text: "No se encontró una cuenta con ese correo.",
+          text: "No se encontró una cuenta con ese usuario.",
           icon: "error",
         });
       }
@@ -78,27 +77,14 @@ export function RecuperarPassword() {
 
           <Form>
             <FormGroup>
-              <Label for="correo">Correo electrónico</Label>
-              <Input
-                type="email"
-                id="correo"
-                placeholder="usuario@correo.com"
-                value={correo}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCorreo(e.target.value)
-                }
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="usuario">Usuario</Label>
+              <Label for="nombreUsuario">Usuario</Label>
               <Input
                 type="text"
-                id="usuario"
-                placeholder="nombredeusuario"
-                value={correo}
+                id="nombreUsuario"
+                placeholder="usuario"
+                value={usuario}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCorreo(e.target.value)
+                  setUsuario(e.target.value)
                 }
               />
             </FormGroup>
@@ -106,15 +92,16 @@ export function RecuperarPassword() {
             <FormGroup>
               <Label for="password">Password</Label>
               <Input
-                type="text"
+                type="password"
                 id="password"
                 placeholder="******"
-                value={correo}
+                value={password}
                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setCorreo(e.target.value)
+                  setPassword(e.target.value)
                 }
               />
             </FormGroup>
+
 
             <div className="text-center mt-4">
               <Button
@@ -122,9 +109,9 @@ export function RecuperarPassword() {
                 className="me-4"
                 onClick={enviarSolicitud}
                 disabled={enviando}>
-                {enviando ? "Enviando..." : "Enviar enlace"}
+                {enviando ? "Actualizando..." : "Actualizar"}
               </Button>
-              <Button color="secondary" onClick={() => navigate("/login")}>
+              <Button color="secondary" onClick={() => navigate("/login/ingreso")}>
                 Volver al login
               </Button>
             </div>

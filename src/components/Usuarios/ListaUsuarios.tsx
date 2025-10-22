@@ -41,7 +41,7 @@ export function ListaUsuarios() {
           <Container className="mt-5">
                <Row>
                     <Col sm={{ size: 8, offset: 2 }}>
-                         <h4>Lista de prioridades</h4>
+                         <h4>Lista de Usuarios</h4>
                          <hr />
                          <Link className="btn btn-success mb-3" to="/usuarios/nuevousuario" >Nuevo Usuario</Link>
 
@@ -49,9 +49,9 @@ export function ListaUsuarios() {
                               <thead>
                                    <tr>
                                         <th>Nombre</th>
-                                        <th>Apellidos</th>
+                                        
                                         <th>Correo</th>
-                                        <th>Direccion</th>  
+                                        <th>Departamento</th>  
                                         <th>Acciones</th>                                      
                                    </tr>
                               </thead>
@@ -60,9 +60,9 @@ export function ListaUsuarios() {
                                         usuarios.map((item) => (
                                              <tr key={item.codigoUsuario}>
                                                   <td>{item.nombreUsuario}</td> 
-                                                  <td>{item.apellidoUsuario}</td>
+                                                  
                                                   <td>{item.correo}</td>
-                                                  <td>{item.direccion}</td>                                                  
+                                                  <td>{item.codigoDepto}</td>                                                  
                                                   <td>
                                                        <Link className="btn btn-primary me-2" to={`../Usuarios/editarusuarios/${item.codigoUsuario}`} >Editar</Link>
                                                        <Button color="danger" onClick={() => { Eliminar(item.codigoUsuario!) }}>

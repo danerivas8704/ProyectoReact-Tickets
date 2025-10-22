@@ -17,10 +17,10 @@ import { appsettings } from "../../settings/appsetings"
 import type { IUsuario } from "../../Interfaces/IUsuario"
 
 const initialIUsuario: IUsuario = {
-  codigoPrioridad: 0,
-  nombrePrioridad: "",
-  descripcionPrioridad: "",
-  nivelPrioridad: 1
+  codigoUsuario: 0,
+  nombreUsuario: "",
+  correo: "",
+  codigoDepto: 1
 };
 
 export function EditarUsuarios() {
@@ -34,13 +34,13 @@ export function EditarUsuarios() {
     const obtenerUsuarios = async () => {
       try {
         const response = await fetch(`${appsettings.apiUrl}Usuarios/ObtenerCodigo/${id}`);
-        if (!response.ok) throw new Error("Error al obtener la categoria");
+        if (!response.ok) throw new Error("Error al obtener el usuario");
         const data: IUsuario = await response.json();
         if (Array.isArray(data) && data.length > 0) {
         setUsuarios(data[0]);
         }
       } catch (error) {
-        Swal.fire("Error", "No se pudo cargar la información del cliente", "error");
+        Swal.fire("Error", "No se pudo cargar la información del usuario", "error");
       } finally {
         setCargando(false);
       }
@@ -80,7 +80,7 @@ export function EditarUsuarios() {
 
       navigate("/usuarios/listausuarios");
     } catch (error) {
-      Swal.fire("Error", "No se pudo editar la prioridad", "error");
+      Swal.fire("Error", "No se pudo editar el usuario", "error");
     }
   };
 
@@ -103,34 +103,28 @@ export function EditarUsuarios() {
           <hr />
           <Form>
             <FormGroup>
-              <Label for="nombreUsuario">Nombre Prioridad</Label>
+              <Label for="nombreUsuario">Nombre usuario</Label>
               <Input type="text" name="nombreUsuario" onChange={inputChangeValue} value={usuarios.nombreUsuario} />
             </FormGroup>
 
             <FormGroup>
-              <Label for="apellidoUsuario">Descripción Prioridad</Label>
-              <Input type="text" name="apellidoUsuario" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
+              <Label for="correo">Correo</Label>
+              <Input type="text" name="correo" onChange={inputChangeValue} value={usuarios.correo} />
             </FormGroup>
 
             <FormGroup>
-              <Label for="correo">Nivel Prioridad</Label>
+              <Label for="codigoDepto">Nivel Prioridad</Label>
               <Input
-                id="correo"
+                id="codigoDepto"
                 type="text"
-                name="correo"
-                value={usuarios.correo}
+                name="codigoDepto"
+                value={usuarios.codigoDepto}
                 onChange={inputChangeValue}
               />
             </FormGroup>
             
-            <FormGroup>
-              <Label for="direccion">Descripción Prioridad</Label>
-              <Input type="text" name="direccion" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
-            </FormGroup>
-            <FormGroup>
-              <Label for="codigoDepto">Descripción Prioridad</Label>
-              <Input type="text" name="codigoDepto" onChange={inputChangeValue} value={usuarios.apellidoUsuario} />
-            </FormGroup>
+            
+            
           </Form>
 
           <div className="d-flex justify-content-end mt-3">
