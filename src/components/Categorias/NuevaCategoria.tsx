@@ -33,7 +33,7 @@ export function NuevaCategoria(){
                 body: JSON.stringify(categorias)
            })
            if(response.ok){
-                navigate("/")
+                navigate("/categorias/listacategoria")
            }else{
                 Swal.fire({
                      title: "Error!",
@@ -56,24 +56,12 @@ export function NuevaCategoria(){
                          <Form>
                               <FormGroup>
                                    <Label>Nombre</Label>
-                                   <Input type="text" name="nombreCliente" onChange={inputChangeValue} value={cliente.nombreCliente} />
+                                   <Input type="text" name="nombreCategoria" onChange={inputChangeValue} value={categorias.nombreCategoria} />
                               </FormGroup>
                               <FormGroup>
-                                   <Label>Apellidos</Label>
-                                   <Input type="text" name="apellidoCliente" onChange={inputChangeValue} value={cliente.apellidoCliente} />
-                              </FormGroup>
-                              <FormGroup>
-                                   <Label>Correo</Label>
-                                   <Input type="text" name="correoCliente" onChange={inputChangeValue} value={cliente.correoCliente} />
-                              </FormGroup>
-                              <FormGroup>
-                                   <Label>direccion</Label>
-                                   <Input type="text" name="direccionCliente" onChange={inputChangeValue} value={cliente.direccionCliente} />
-                              </FormGroup>
-                              <FormGroup>
-                                   <Label>Estado</Label>
-                                   <Input type="number" name="codigoEstado" onChange={inputChangeValue} value={cliente.codigoEstado} />
-                              </FormGroup>
+                                   <Label>Descripcion Catgoria</Label>
+                                   <Input type="text" name="descripcionCategoria" onChange={inputChangeValue} value={categorias.descripcionCategoria} />
+                              </FormGroup>                        
                          </Form>
                          <Button color="primary" className="me-4" onClick={guardar}>Guardar</Button>
                          <Button color="secondary"  onClick={volver}>Volver</Button>

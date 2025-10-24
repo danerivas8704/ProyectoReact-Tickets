@@ -44,7 +44,7 @@ export function ListaCategoria() {
                     <Col sm={{ size: 8, offset: 2 }}>
                          <h4>Lista de categorias</h4>
                          <hr />
-                         <Link className="btn btn-success mb-3" to="/Categorias/nuevacategoria" >Nueva categoria</Link>
+                         <Link className="btn btn-success mb-3" to="/categorias/nuevacategoria" >Nueva categoria</Link>
 
                          <Table bordered>
                               <thead>

@@ -46,14 +46,12 @@ export function Sidebar() {
     {
       category: "Gestión",
       items: [
-        
-        { label: "Estados", path: "estados/listaestados" },
-        { label: "Usuarios", path: "/usuarios" },
+        { label: "Usuarios", path: "/usuarios/listausuarios" },
+        { label: "Clientes", path: "/lista" },
         {
           label: "Reportes",
           subItems: [
-            { label: "Prioridades ", path: "/reportes/diario" },
-            { label: "Reportemal", path: "/reportes/mensual2" },
+            { label: "Tickets ", path: "/reportes/reportetickets" },
           ],
         },       
       ],
@@ -66,8 +64,9 @@ export function Sidebar() {
           label: "Catalogos",
           subItems: [
             { label: "Cat. Prioridades", path: "/prioridades/listaprioridades" },
-            { label: "Cat. Departamentos", path: "/reportes/mensual" },
-            { label: "Cat. Categorias", path: "/reportes/mensual3" },
+            { label: "Cat. Departamentos", path: "/departamentos/listadepartamentos" },
+            { label: "Cat. Categorias ", path: "/categorias/listacategoria" },
+            { label: "Cat. Estados Varios ", path: "/estados/listaestados" },
           ],
         },  
       ],

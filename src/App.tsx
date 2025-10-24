@@ -22,6 +22,7 @@ import { NuevoUsuario} from "./components/Usuarios/NuevoUsuario"
 import { Sidebar } from "./components/Sidebar"
 import { Layout } from "./components/Layout";
 import { ListaTickets } from "./components/Tickets/ListaTickets"
+import { ReporteTickets } from "./components/Reportes/ReporteTickets"
 
 function App() {
   const hideSidebar = window.location.pathname === "/Login/ingreso";
@@ -55,6 +56,7 @@ function App() {
             <Route path="Departamentos/listadepartamentos" element={<ListaDepartamentos/>}/>
             <Route path="Departamentos/nuevodepartamento" element={<NuevoDepartamento/>}/>
             <Route path="Departamentos/editardepartamentos/:id" element={<EditarDepartamentos/>}/>
+            <Route path="Reportes/ReporteTickets" element={<ReporteTickets/>}/>
           </Routes>
         </Layout>
       )}
