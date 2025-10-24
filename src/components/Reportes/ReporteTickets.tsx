@@ -12,15 +12,24 @@ export const ReporteTickets = () => {
   }, []);
 
   const obtenerReporte = async () => {
-    try {
-      const response = await fetch(`${appsettings.apiUrl}Tickets/Reporte`);
-      if (!response.ok) throw new Error("Error al obtener reporte de tickets");
-      const data = await response.json();
+  try {
+    const response = await fetch(`${appsettings.apiUrl}Tickets/Reporte`);
+    if (!response.ok) throw new Error("Error al obtener reporte de tickets");
+    const data = await response.json();
+
+    // ✅ Asegurar que sea un arreglo
+    if (Array.isArray(data)) {
       setTickets(data);
-    } catch (error: any) {
-      Swal.fire("Error", error.message, "error");
+    } else if (data?.data && Array.isArray(data.data)) {
+      setTickets(data.data); // si la API devuelve dentro de 'data'
+    } else {
+      setTickets([]); // en caso de error o vacío
     }
-  };
+
+  } catch (error: any) {
+    Swal.fire("Error", error.message, "error");
+  }
+};
 
   return (
     <Container className="mt-4">
@@ -40,8 +49,7 @@ export const ReporteTickets = () => {
                 <th>Usuario</th>
                 <th>Estado</th>
                 <th>Creación</th>
-                <th>Modificación</th>
-                <th>Cierre</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -57,8 +65,7 @@ export const ReporteTickets = () => {
                   <td>{t.nombreUsuario}</td>
                   <td>{t.nombreEstado}</td>
                   <td>{new Date(t.fechaCreacion).toLocaleDateString()}</td>
-                  <td>{new Date(t.fechaModificacion).toLocaleDateString()}</td>
-                  <td>{new Date(t.fechaCierre).toLocaleDateString()}</td>
+                  
                 </tr>
               ))}
             </tbody>
