@@ -48,10 +48,12 @@ export function Sidebar() {
       items: [
         { label: "Usuarios", path: "/usuarios/listausuarios" },
         { label: "Clientes", path: "/lista" },
+        { label: "Dashboard Principal", path: "/dashboard/dashboard" },
         {
           label: "Reportes",
           subItems: [
-            { label: "Tickets ", path: "/reportes/reportetickets" },
+            { label: "Tickets Principal ", path: "/reportes/reportetickets" },
+           
           ],
         },       
       ],

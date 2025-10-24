@@ -5,29 +5,29 @@ import { useNavigate } from "react-router";
 import { appsettings } from "../../settings/appsetings";
 
 interface IMetricas {
-  totalClientes: number;
-  totalPedidos: number;
-  totalVentas: number;
-  totalPrioridades: number;
+  abierto: number;
+  enProgreso: number;
+  resuelto: number;
+  cerrado: number;
 }
 
 export function Dashboard() {
   const navigate = useNavigate();
   const [metricas, setMetricas] = useState<IMetricas>({
-    totalClientes: 0,
-    totalPedidos: 0,
-    totalVentas: 0,
-    totalPrioridades: 0,
+    abierto: 0,
+    enProgreso: 0,
+    resuelto: 0,
+    cerrado: 0,
   });
 
   // Cargar métricas al iniciar
   useEffect(() => {
     const cargarDatos = async () => {
       try {
-        const response = await fetch(`${appsettings.apiUrl}Dashboard/ObtenerMetricas`);
+        const response = await fetch(`${appsettings.apiUrl}Tickets/ObtenerDashboard`);
         if (response.ok) {
           const data = await response.json();
-          setMetricas(data);
+          setMetricas(data[0]);
         } else {
           Swal.fire("Error", "No se pudieron cargar las métricas del dashboard", "error");
         }
@@ -41,15 +41,15 @@ export function Dashboard() {
 
   return (
     <Container className="mt-5">
-      <h3 className="text-center mb-4">Panel de Control</h3>
+      <h3 className="text-center mb-4">Dashboard Tickets</h3>
       <Row>
         {/* Tarjetas de métricas */}
         <Col md="3" sm="6" className="mb-4">
           <Card body color="primary" inverse>
             <CardBody>
-              <CardTitle tag="h5">Clientes</CardTitle>
-              <CardText>{metricas.totalClientes}</CardText>
-              <Button color="light" size="sm" onClick={() => navigate("/clientes/listaclientes")}>
+              <CardTitle tag="h5">Abiertos</CardTitle>
+              <CardText>{metricas.abierto}</CardText>
+              <Button color="light" size="sm" onClick={() => navigate("/clientes/listaclientes")} style={{ visibility: "hidden" }}>
                 Ver más
               </Button>
             </CardBody>
@@ -59,9 +59,9 @@ export function Dashboard() {
         <Col md="3" sm="6" className="mb-4">
           <Card body color="success" inverse>
             <CardBody>
-              <CardTitle tag="h5">Pedidos</CardTitle>
-              <CardText>{metricas.totalPedidos}</CardText>
-              <Button color="light" size="sm" onClick={() => navigate("/pedidos/listapedidos")}>
+              <CardTitle tag="h5">En Progreso</CardTitle>
+              <CardText>{metricas.enProgreso}</CardText>
+              <Button color="light" size="sm" onClick={() => navigate("/pedidos/listapedidos")} style={{ visibility: "hidden" }}>
                 Ver más
               </Button>
             </CardBody>
@@ -71,9 +71,9 @@ export function Dashboard() {
         <Col md="3" sm="6" className="mb-4">
           <Card body color="warning" inverse>
             <CardBody>
-              <CardTitle tag="h5">Ventas</CardTitle>
-              <CardText>{metricas.totalVentas}</CardText>
-              <Button color="light" size="sm" onClick={() => navigate("/ventas/listaventas")}>
+              <CardTitle tag="h5">Resueltos</CardTitle>
+              <CardText>{metricas.resuelto}</CardText>
+              <Button color="light" size="sm" onClick={() => navigate("/ventas/listaventas")} style={{ visibility: "hidden" }}>
                 Ver más
               </Button>
             </CardBody>
@@ -83,29 +83,17 @@ export function Dashboard() {
         <Col md="3" sm="6" className="mb-4">
           <Card body color="info" inverse>
             <CardBody>
-              <CardTitle tag="h5">Prioridades</CardTitle>
-              <CardText>{metricas.totalPrioridades}</CardText>
-              <Button color="light" size="sm" onClick={() => navigate("/prioridades/listaprioridades")}>
+              <CardTitle tag="h5">Cerrados</CardTitle>
+              <CardText>{metricas.cerrado}</CardText>
+               <Button color="light" size="sm" onClick={() => navigate("/ventas/listaventas")} style={{ visibility: "hidden" }}>
                 Ver más
-              </Button>
+              </Button>             
             </CardBody>
           </Card>
         </Col>
       </Row>
 
-      {/* Sección extra */}
-      <Row className="mt-5">
-        <Col sm="12" className="text-center">
-          <h5>Resumen general</h5>
-          <p>
-            Este panel muestra los indicadores más importantes del sistema.  
-            Usa las opciones de navegación para ver más detalles sobre cada módulo.
-          </p>
-          <Button color="primary" onClick={() => navigate("/prioridades/nueva")}>
-            Crear nueva prioridad
-          </Button>
-        </Col>
-      </Row>
+      
     </Container>
   );
 }
