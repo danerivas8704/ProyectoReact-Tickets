@@ -14,13 +14,13 @@ import {
 import { appsettings } from "../../settings/appsetings";
 
 interface ILogin {
-  correo: string;
-  password: string;
+  usuario: string;
+  clave: string;
 }
 
 const initialLogin: ILogin = {
-  correo: "",
-  password: "",
+  usuario: "",
+  clave: "",
 };
 
 export function Login() {
@@ -36,7 +36,7 @@ export function Login() {
   };
 
   const iniciarSesion = async () => {
-    if (!login.correo || !login.password) {
+    if (!login.usuario || !login.clave) {
       Swal.fire({
         title: "Campos requeridos",
         text: "Por favor ingresa tu usuario y contraseña.",
@@ -46,7 +46,7 @@ export function Login() {
     }
 
     try {
-      const response = await fetch(`${appsettings.apiUrl}Auth/Login`, {
+      const response = await fetch(`${appsettings.apiAcceso}Acceso/Login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,18 +58,14 @@ export function Login() {
         const data = await response.json();
 
         // Guardar token o usuario en localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("usuario", JSON.stringify(data.usuario));
+        /* localStorage.setItem("token", data.token);
+        localStorage.setItem("usuario", JSON.stringify(data.usuario)); */
 
-        Swal.fire({
-          title: "¡Bienvenido!",
-          text: "Inicio de sesión exitoso.",
-          icon: "success",
-          timer: 1500,
-          showConfirmButton: false,
-        });
+        navigate("/dashboard/dashboard");
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
 
-        navigate("/dashboard");
       } else {
         Swal.fire({
           title: "Error",
@@ -97,26 +93,26 @@ export function Login() {
 
           <Form>
             <FormGroup>
-              <Label for="correo">Usuario</Label>
+              <Label for="usuario">Usuario</Label>
               <Input
-                type="email"
-                name="correo"
-                id="correo"
-                placeholder="usuario"
+                type="text"
+                name="usuario"
+                id="usuario"
+                
                 onChange={inputChangeValue}
-                value={login.correo}
+                value={login.usuario}
               />
             </FormGroup>
 
             <FormGroup>
-              <Label for="password">Password</Label>
+              <Label for="clave">Password</Label>
               <Input
                 type="password"
-                name="password"
-                id="password"
+                name="clave"
+                id="clave"
                 placeholder="********"
                 onChange={inputChangeValue}
-                value={login.password}
+                value={login.clave}
               />
             </FormGroup>
 

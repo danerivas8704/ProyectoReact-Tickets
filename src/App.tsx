@@ -25,12 +25,13 @@ import { ListaTickets } from "./components/Tickets/ListaTickets"
 import { ReporteTickets } from "./components/Reportes/ReporteTickets"
 import { Dashboard } from "./components/Dashboard/Dashboard"
 function App() {
-  const hideSidebar = window.location.pathname === "/Login/ingreso";
+  const hideSidebar = window.location.pathname === "/";
   return (
     <BrowserRouter>
       {hideSidebar ? (
-        <Routes>
-          <Route path="Login/ingreso" element={<Login/>}/>
+        <Routes>       
+          <Route path="/" element={<Login/>}/>
+          <Route path="login/recuperarpassword" element={<RecuperarPassword/>}/>
         </Routes>
       ) : (
         <Layout>
@@ -40,7 +41,7 @@ function App() {
             <Route path="/editarcliente/:id" element={<EditarCliente/>}/>
             <Route path="/tickets/listatickets" element={<ListaTickets/>}/>
             <Route path="/sidebar" element={<Sidebar/>}/>
-            <Route path="login/recuperarpassword" element={<RecuperarPassword/>}/>
+            
             <Route path="usuarios/listausuarios" element={<ListaUsuarios/>}/>
             <Route path="usuarios/editarusuarios/:id" element={<EditarUsuarios/>}/>
             <Route path="usuarios/nuevousuario" element={<NuevoUsuario/>}/>
