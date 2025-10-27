@@ -32,7 +32,7 @@ export function ListaCategoria() {
           }).then(async (result) => {
                if (result.isConfirmed) {
 
-                    const response = await fetch(`${appsettings.apiUrl}Empleado/Eliminar/${id}`, { method: "DELETE" })
+                    const response = await fetch(`${appsettings.apiUrl}Categorias/Eliminar/${id}`, { method: "DELETE" })
                     if (response.ok) await obtenerCategorias()
                }
           });

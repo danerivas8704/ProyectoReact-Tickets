@@ -3,6 +3,6 @@
   nombreDepto: string,
   descripcionDepto: string,
   codigoEstado: number,
-  fechaCreacion?: Date, 
+  fechaCreacion: Date, 
   fechaModificacion: Date
 }

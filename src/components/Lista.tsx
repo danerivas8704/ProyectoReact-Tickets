@@ -36,7 +36,7 @@ export function Lista() {
             confirmButtonText: "Sí, eliminar"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const response = await fetch(`${appsettings.apiUrl}Empleado/Eliminar/${id}`, { method: "DELETE" })
+                const response = await fetch(`${appsettings.apiUrl}Clientes/Eliminar/${id}`, { method: "DELETE" })
                 if (response.ok) {
                     Swal.fire("Eliminado!", "El cliente fue eliminado correctamente.", "success")
                     await obtenerClientes()

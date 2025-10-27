@@ -58,13 +58,16 @@ export function Login() {
         const data = await response.json();
 
         // Guardar token o usuario en localStorage
-        /* localStorage.setItem("token", data.token);
-        localStorage.setItem("usuario", JSON.stringify(data.usuario)); */
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("usuario", data.data.usuario);
+        
 
         navigate("/dashboard/dashboard");
         setTimeout(() => {
           window.location.reload();
         }, 300);
+        alert(localStorage.getItem("token"));
+        alert(localStorage.getItem("usuario"));
 
       } else {
         Swal.fire({

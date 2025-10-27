@@ -44,7 +44,7 @@ export function ListaDepartamentos() {
                     <Col sm={{ size: 8, offset: 2 }}>
                          <h4>Lista de Departamentos</h4>
                          <hr />
-                         <Link className="btn btn-success mb-3" to="/nuevocliente" >Nuevo Departamento</Link>
+                         <Link className="btn btn-success mb-3" to="/departamentos/nuevodepartamento" >Nuevo Departamento</Link>
 
                          <Table bordered>
                               <thead>
@@ -52,7 +52,7 @@ export function ListaDepartamentos() {
                                         <th>Codigo Depto</th>
                                         <th>Nombre</th>
                                         <th>Descripción</th>
-                                        <th>Fecha Creación</th>                                                                            
+                                                                                                                   
                                    </tr>
                               </thead>
                               <tbody>
@@ -61,7 +61,7 @@ export function ListaDepartamentos() {
                                              <tr key={item.codigoDepto}>
                                                   <td>{item.nombreDepto}</td>
                                                   <td>{item.descripcionDepto}</td>
-                                                  <td>{item.fechaCreacion}</td>                                                
+                                                                                                 
                                                   <td>
                                                        <Link className="btn btn-primary me-2" to={`/editarcliente/${item.codigoCliente}`} >Editar</Link>
                                                        <Button color="danger" onClick={() => { Eliminar(item.codigoCliente!) }}>
