@@ -8,8 +8,7 @@ import type { IDepartamento } from "../../Interfaces/IDepartamento"
 
 const initialIDepartamento = {  
   nombreDepto: "",
-  descripcionDepto: "",  
-  fechaCreacion: Date.now()
+  descripcionDepto: ""
 }
 
 
@@ -33,7 +32,7 @@ export function NuevoDepartamento(){
                 body: JSON.stringify(departamentos)
            })
            if(response.ok){
-                navigate("/")
+                navigate("/departamentos/listadepartamentos")
            }else{
                 Swal.fire({
                      title: "Error!",
@@ -62,10 +61,7 @@ export function NuevoDepartamento(){
                                    <Label>Descripcion Departamento</Label>
                                    <Input type="text" name="descripcionDepto" onChange={inputChangeValue} value={departamentos.descripcionDepto} />
                               </FormGroup>
-                              <FormGroup>
-                                   <Label>Fecha Creación</Label>
-                                   <Input type="text" name="fechaCreacion" onChange={inputChangeValue} value={departamentos.fechaCreacion?.getDate()} />
-                              </FormGroup>                              
+                                                           
                          </Form>
                          <Button color="primary" className="me-4" onClick={guardar}>Guardar</Button>
                          <Button color="secondary"  onClick={volver}>Volver</Button>

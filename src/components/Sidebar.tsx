@@ -74,12 +74,23 @@ export function Sidebar() {
       ],
     },
     
+    {
+      category: "Gestión de Tickets",
+      items: [        
+        {
+          label: "Tickets",
+          subItems: [
+            { label: "Lista de tickets", path: "/tickets/listatickets" },           
+          ],
+        },  
+      ],
+    },
+    
 
     {
       category: "Configuración",
       items: [
-        { label: "Seguridad", path: "/seguridad" },
-        { label: "Preferencias", path: "/configuracion" },
+        
       ],
     },
   ];

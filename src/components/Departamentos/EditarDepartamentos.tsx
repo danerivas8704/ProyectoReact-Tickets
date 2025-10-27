@@ -63,7 +63,7 @@ export function EditarDepartamentos() {
   /** 🔹 Guardar cambios */
   const guardar = async () => {
     try {
-      const response = await fetch(`${appsettings.apiUrl}Clientes/Editar`, {
+      const response = await fetch(`${appsettings.apiUrl}Departamentos/Editar`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(departamentos),
@@ -86,7 +86,7 @@ export function EditarDepartamentos() {
   };
 
   /** 🔹 Regresar */
-  const volver = () => navigate("/");
+  const volver = () => navigate("/departamentos/listadepartamentos");
 
   if (cargando) {
     return (
@@ -104,36 +104,20 @@ export function EditarDepartamentos() {
           <hr />
           <Form>
             <FormGroup>
-              <Label for="nombreDepto">Nombre</Label>
-              <Input type="text" name="nombreDepto" onChange={inputChangeValue} value={departamentos.codigoDepto} />
+              <Label for="codigoDepto">Codigo Departamento</Label>
+              <Input type="text" name="codigoDepto" onChange={inputChangeValue} value={departamentos.codigoDepto} />
             </FormGroup>
 
             <FormGroup>
-              <Label for="apellidoCliente">Apellidos</Label>
-              <Input type="text" name="apellidoCliente" onChange={inputChangeValue} value={departamentos.nombreDepto} />
+              <Label for="nombreDepto">Nombre Departamento</Label>
+              <Input type="text" name="nombreDepto" onChange={inputChangeValue} value={departamentos.nombreDepto} />
+            </FormGroup>
+            <FormGroup>
+              <Label for="descripcionDepto">Descripcion Departamento</Label>
+              <Input type="text" name="descripcionDepto" onChange={inputChangeValue} value={departamentos.descripcionDepto} />
             </FormGroup>
 
-            <FormGroup>
-              <Label for="descripcionDepto">Correo</Label>
-              <Input
-                id="descripcionDepto"
-                type="text"
-                name="descripcionDepto"
-                value={departamentos.descripcionDepto}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="fechaCreacion">Dirección</Label>
-              <Input
-                id="fechaCreacion"
-                type="date"
-                name="fechaCreacion"
-                value={departamentos.fechaCreacion?.toDateString()}
-                onChange={inputChangeValue}
-              />
-            </FormGroup>            
+                      
           </Form>
 
           <div className="d-flex justify-content-end mt-3">

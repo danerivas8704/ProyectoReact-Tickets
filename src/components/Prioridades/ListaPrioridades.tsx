@@ -65,7 +65,7 @@ export function ListaPrioridades() {
                                                   <td>{item.nivelPrioridad}</td>                                                  
                                                   <td>
                                                        <Link className="btn btn-primary me-2" to={`../Prioridades/editarprioridades/${item.codigoPrioridad}`} >Editar</Link>
-                                                       <Button color="danger" onClick={() => { Eliminar(item.codigoCliente!) }}>
+                                                       <Button color="danger" onClick={() => { Eliminar(item.codigoPrioridad!) }}>
                                                             Eliminar
                                                        </Button>
                                                   </td>

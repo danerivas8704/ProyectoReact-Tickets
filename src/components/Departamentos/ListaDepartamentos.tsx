@@ -59,12 +59,13 @@ export function ListaDepartamentos() {
                                    {
                                         departamentos.map((item) => (
                                              <tr key={item.codigoDepto}>
+                                                  <td>{item.codigoDepto}</td>
                                                   <td>{item.nombreDepto}</td>
                                                   <td>{item.descripcionDepto}</td>
                                                                                                  
                                                   <td>
-                                                       <Link className="btn btn-primary me-2" to={`/editarcliente/${item.codigoCliente}`} >Editar</Link>
-                                                       <Button color="danger" onClick={() => { Eliminar(item.codigoCliente!) }}>
+                                                       <Link className="btn btn-primary me-2" to={`../Departamentos/editardepartamentos/${item.codigoDepto}`} >Editar</Link>
+                                                       <Button color="danger" onClick={() => { Eliminar(item.codigoDepto!) }}>
                                                             Eliminar
                                                        </Button>
                                                   </td>

@@ -32,7 +32,7 @@ export function NuevoEstado(){
                 body: JSON.stringify(estados)
            })
            if(response.ok){
-                navigate("/")
+                navigate("/Estados/listaestados")
            }else{
                 Swal.fire({
                      title: "Error!",
@@ -43,7 +43,7 @@ export function NuevoEstado(){
      }
 
      const volver = () =>{
-          navigate("estados/nuevoestado")
+          navigate("estados/listaestados")
      }
 
     return(
